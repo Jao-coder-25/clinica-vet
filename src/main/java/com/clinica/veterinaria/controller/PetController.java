@@ -1,6 +1,6 @@
 package com.clinica.veterinaria.controller;
 
-import com.clinica.veterinaria.PetService;
+import com.clinica.veterinaria.service.PetService;
 import com.clinica.veterinaria.entity.PetEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

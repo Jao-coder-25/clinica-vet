@@ -1,4 +1,4 @@
-package com.clinica.veterinaria;
+package com.clinica.veterinaria.service;
 
 import com.clinica.veterinaria.entity.PetEntity;
 import com.clinica.veterinaria.repository.PetRepository;
