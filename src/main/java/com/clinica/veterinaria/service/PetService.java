@@ -35,7 +35,7 @@ public class PetService {
         petEntity.setRaca(petDTO.racaPet());
         petEntity.setSexo(petDTO.sexoPet());
         petEntity.setDataNascimento(petDTO.dataNascimentoPet());
-        petEntity.setTutor(tutorRepository.findById(IdTutor).orElse(null));
+        petEntity.setTutor(tutorRepository.getReferenceById(IdTutor));
 
         return petRepository.save(petEntity);
     }
