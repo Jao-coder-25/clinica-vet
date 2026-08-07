@@ -1,5 +1,6 @@
 package com.clinica.veterinaria.controller;
 
+import com.clinica.veterinaria.dto.PetDTO;
 import com.clinica.veterinaria.service.PetService;
 import com.clinica.veterinaria.entity.PetEntity;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,8 @@ public class PetController {
         this.petService = petService;
     }
     @PostMapping
-    public ResponseEntity<PetEntity> save(@RequestBody PetEntity petEntity) {
-        PetEntity petSalvo = petService.save(petEntity);
+    public ResponseEntity<PetEntity> save(@RequestBody PetDTO petDTO) {
+        PetEntity petSalvo = petService.save(petDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(petSalvo);
     }
 }

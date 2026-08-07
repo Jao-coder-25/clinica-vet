@@ -1,5 +1,6 @@
 package com.clinica.veterinaria.service;
 
+import com.clinica.veterinaria.dto.PetDTO;
 import com.clinica.veterinaria.entity.PetEntity;
 import com.clinica.veterinaria.repository.PetRepository;
 import com.clinica.veterinaria.repository.TutorRepository;
@@ -16,17 +17,26 @@ public class PetService {
         this.tutorRepository = tutorRepository;
     }
 
-    public PetEntity save(PetEntity petEntity) {
-        if(petEntity.getTutor() == null || petEntity.getTutor().getIdTutor() == null) {
+    public PetEntity save(PetDTO petDTO) {
+        if(petDTO.idTutor() == null) {
             throw new IllegalArgumentException("O tutor do pet não pode ser nulo.");
         }
 
-        Long IdTutor = petEntity.getTutor().getIdTutor();
+        Long IdTutor = petDTO.idTutor();
         boolean tutorExists = tutorRepository.existsById(IdTutor);
 
         if(!tutorExists) {
             throw new IllegalArgumentException("O tutor com ID " + IdTutor + " não existe.");
         }
+
+        PetEntity petEntity = new PetEntity();
+        petEntity.setNomePet(petDTO.nomePet());
+        petEntity.setEspecie(petDTO.especiePet());
+        petEntity.setRaca(petDTO.racaPet());
+        petEntity.setSexo(petDTO.sexoPet());
+        petEntity.setDataNascimento(petDTO.dataNascimentoPet());
+        petEntity.setTutor(tutorRepository.findById(IdTutor).orElse(null));
+
         return petRepository.save(petEntity);
     }
 }
