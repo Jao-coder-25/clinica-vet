@@ -1,12 +1,13 @@
 package com.clinica.veterinaria.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 
 @Entity
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "tb_consulta")
 public class ConsultaEntity {
 
@@ -26,7 +28,7 @@ public class ConsultaEntity {
     private String tipoConsulta;
 
     @Column (name = "data_consulta", nullable = false)
-    private LocalDateTime dataConsulta;
+    private LocalDate dataConsulta;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "id_pet", nullable = false)
