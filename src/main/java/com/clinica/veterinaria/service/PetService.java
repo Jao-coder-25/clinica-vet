@@ -18,9 +18,6 @@ public class PetService {
     }
 
     public PetEntity save(PetDTO petDTO) {
-        if(petDTO.idTutor() == null) {
-            throw new IllegalArgumentException("O tutor do pet não pode ser nulo.");
-        }
 
         Long IdTutor = petDTO.idTutor();
         boolean tutorExists = tutorRepository.existsById(IdTutor);

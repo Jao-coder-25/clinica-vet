@@ -15,17 +15,12 @@ public class TutorService {
     }
 
     public TutorEntity save(TutorDTO tutorDTO) {
-    if(tutorDTO.nomeTutor() == null || tutorDTO.nomeTutor().isBlank()) {
-        throw new IllegalArgumentException("O nome do tutor não pode ser nulo ou vazio.");
-    }
+        boolean cpfExistente = tutorRepository.existsByCpfTutor(tutorDTO.cpfTutor());
 
-    if(tutorDTO.cpfTutor() == null || tutorDTO.cpfTutor().isBlank()) {
-        throw new IllegalArgumentException("O CPF do tutor não pode ser nulo ou vazio.");
-    }
+        if (cpfExistente) {
+            throw new IllegalArgumentException("O CPF informado já está cadastrado.");
+        }
 
-    if (tutorDTO.telefoneTutor() == null || tutorDTO.telefoneTutor().isBlank()) {
-        throw new IllegalArgumentException("O telefone do tutor não pode ser nulo ou vazio.");
-    }
     TutorEntity novaEntity = new TutorEntity();
     novaEntity.setNomeTutor(tutorDTO.nomeTutor());
     novaEntity.setCpfTutor(tutorDTO.cpfTutor());

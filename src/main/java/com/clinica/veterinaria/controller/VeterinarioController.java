@@ -4,6 +4,7 @@ import com.clinica.veterinaria.dto.VeterinarioDTO;
 import com.clinica.veterinaria.entity.VeterinarioEntity;
 import com.clinica.veterinaria.repository.VeterinarioRepository;
 import com.clinica.veterinaria.service.VeterinarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ public class VeterinarioController {
     }
 
     @PostMapping
-    public ResponseEntity<VeterinarioEntity> save(@RequestBody VeterinarioDTO veterinarioDTO) {
+    public ResponseEntity<VeterinarioEntity> save(@RequestBody @Valid VeterinarioDTO veterinarioDTO) {
         VeterinarioEntity salvarVeterinario = veterinarioService.save(veterinarioDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvarVeterinario);
     }

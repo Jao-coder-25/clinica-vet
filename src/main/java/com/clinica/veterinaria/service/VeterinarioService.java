@@ -14,9 +14,6 @@ public class VeterinarioService {
         this.veterinarioRepository = veterinarioRepository;
     }
     public VeterinarioEntity save(VeterinarioDTO veterinarioDTO){
-        if(veterinarioDTO.nomeVeterinario() == null || veterinarioDTO.nomeVeterinario().isBlank() || veterinarioDTO.especialidadeVeterinario() == null || veterinarioDTO.telefoneVeterinario() == null){
-            throw new IllegalArgumentException("Todos os campos são obrigatórios");
-        }
         VeterinarioEntity veterinarioEntity = new VeterinarioEntity();
         veterinarioEntity.setNomeVeterinario(veterinarioDTO.nomeVeterinario());
         veterinarioEntity.setEspecialidade(veterinarioDTO.especialidadeVeterinario());

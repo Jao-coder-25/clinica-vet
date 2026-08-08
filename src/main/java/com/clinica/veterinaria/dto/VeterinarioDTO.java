@@ -1,12 +1,19 @@
 package com.clinica.veterinaria.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import jakarta.validation.constraints.NotBlank;
 
 public record VeterinarioDTO(
+
+        @NotBlank(message = "O nome do veterinário é obrigatório.")
         @JsonAlias({"especialidade_veterinario"})
         String especialidadeVeterinario,
+
+        @NotBlank(message = "O nome do veterinário é obrigatório.")
         @JsonAlias({"nome_veterinario"})
         String nomeVeterinario,
+
+        @NotBlank(message = "O telefone do veterinário é obrigatório.")
         @JsonAlias({"telefone_veterinario"})
         String telefoneVeterinario
 ) {}

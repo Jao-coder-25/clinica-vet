@@ -3,6 +3,7 @@ package com.clinica.veterinaria.controller;
 import com.clinica.veterinaria.dto.PetDTO;
 import com.clinica.veterinaria.service.PetService;
 import com.clinica.veterinaria.entity.PetEntity;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class PetController {
         this.petService = petService;
     }
     @PostMapping
-    public ResponseEntity<PetEntity> save(@RequestBody PetDTO petDTO) {
+    public ResponseEntity<PetEntity> save(@RequestBody @Valid PetDTO petDTO) {
         PetEntity petSalvo = petService.save(petDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(petSalvo);
     }

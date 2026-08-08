@@ -21,9 +21,7 @@ public class ConsultaService {
         this.petRepository = petRepository;
     }
     public ConsultaEntity save(ConsultaDTO consultaDTO) {
-        if (consultaDTO.tipoConsulta() == null || consultaDTO.tipoConsulta().isBlank() || consultaDTO.dataConsulta() == null || consultaDTO.idVeterinario() == null || consultaDTO.idPet() == null) {
-            throw new IllegalArgumentException("Todos os campos são obrigatórios.");
-        }
+
         if (!veterinarioRepository.existsById(consultaDTO.idVeterinario())){
             throw new IllegalArgumentException("Veterinário não encontrado.");
         }

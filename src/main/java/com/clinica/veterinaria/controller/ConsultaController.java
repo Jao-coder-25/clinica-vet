@@ -3,6 +3,7 @@ package com.clinica.veterinaria.controller;
 import com.clinica.veterinaria.dto.ConsultaDTO;
 import com.clinica.veterinaria.entity.ConsultaEntity;
 import com.clinica.veterinaria.service.ConsultaService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class ConsultaController {
     }
 
     @PostMapping
-    public ResponseEntity<ConsultaEntity> save(@RequestBody ConsultaDTO consultaDTO) {
+    public ResponseEntity<ConsultaEntity> save(@RequestBody @Valid ConsultaDTO consultaDTO) {
         ConsultaEntity salvarConsulta = consultaService.save(consultaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvarConsulta);
     }
