@@ -1,6 +1,6 @@
 package com.clinica.veterinaria.controller;
 
-import com.clinica.veterinaria.dto.ConsultaDTO;
+import com.clinica.veterinaria.dto.request.ConsultaDTO;
 import com.clinica.veterinaria.entity.ConsultaEntity;
 import com.clinica.veterinaria.service.ConsultaService;
 import jakarta.validation.Valid;

@@ -1,8 +1,7 @@
 package com.clinica.veterinaria.controller;
 
-import com.clinica.veterinaria.dto.VeterinarioDTO;
+import com.clinica.veterinaria.dto.request.VeterinarioDTO;
 import com.clinica.veterinaria.entity.VeterinarioEntity;
-import com.clinica.veterinaria.repository.VeterinarioRepository;
 import com.clinica.veterinaria.service.VeterinarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

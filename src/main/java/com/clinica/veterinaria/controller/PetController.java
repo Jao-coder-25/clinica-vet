@@ -1,6 +1,6 @@
 package com.clinica.veterinaria.controller;
 
-import com.clinica.veterinaria.dto.PetDTO;
+import com.clinica.veterinaria.dto.request.PetDTO;
 import com.clinica.veterinaria.service.PetService;
 import com.clinica.veterinaria.entity.PetEntity;
 import jakarta.validation.Valid;

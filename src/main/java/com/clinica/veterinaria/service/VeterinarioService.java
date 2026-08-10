@@ -1,6 +1,6 @@
 package com.clinica.veterinaria.service;
 
-import com.clinica.veterinaria.dto.VeterinarioDTO;
+import com.clinica.veterinaria.dto.request.VeterinarioDTO;
 import com.clinica.veterinaria.entity.VeterinarioEntity;
 import com.clinica.veterinaria.repository.VeterinarioRepository;
 import org.springframework.stereotype.Service;
