@@ -14,6 +14,11 @@ public class VeterinarioService {
         this.veterinarioRepository = veterinarioRepository;
     }
     public VeterinarioEntity save(VeterinarioDTO veterinarioDTO){
+        boolean cpfExistente = veterinarioRepository.existsByCpfVeterinario(veterinarioDTO.cpfVeterinario());
+
+        if (cpfExistente) {
+            throw new IllegalArgumentException("O CPF informado já está cadastrado.");
+        }
         VeterinarioEntity veterinarioEntity = new VeterinarioEntity();
         veterinarioEntity.setNomeVeterinario(veterinarioDTO.nomeVeterinario());
         veterinarioEntity.setEspecialidade(veterinarioDTO.especialidadeVeterinario());
