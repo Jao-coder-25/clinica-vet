@@ -1,6 +1,7 @@
 package com.clinica.veterinaria.controller;
 
 import com.clinica.veterinaria.dto.request.VeterinarioDTO;
+import com.clinica.veterinaria.dto.response.VeterinarioResponseDTO;
 import com.clinica.veterinaria.entity.VeterinarioEntity;
 import com.clinica.veterinaria.service.VeterinarioService;
 import jakarta.validation.Valid;
@@ -22,8 +23,8 @@ public class VeterinarioController {
     }
 
     @PostMapping
-    public ResponseEntity<VeterinarioEntity> save(@RequestBody @Valid VeterinarioDTO veterinarioDTO) {
-        VeterinarioEntity salvarVeterinario = veterinarioService.save(veterinarioDTO);
+    public ResponseEntity<VeterinarioResponseDTO> save(@RequestBody @Valid VeterinarioDTO veterinarioDTO) {
+        VeterinarioResponseDTO salvarVeterinario = veterinarioService.save(veterinarioDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvarVeterinario);
     }
 }

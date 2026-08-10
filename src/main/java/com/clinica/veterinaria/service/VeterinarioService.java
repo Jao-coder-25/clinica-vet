@@ -1,6 +1,7 @@
 package com.clinica.veterinaria.service;
 
 import com.clinica.veterinaria.dto.request.VeterinarioDTO;
+import com.clinica.veterinaria.dto.response.VeterinarioResponseDTO;
 import com.clinica.veterinaria.entity.VeterinarioEntity;
 import com.clinica.veterinaria.repository.VeterinarioRepository;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class VeterinarioService {
     public VeterinarioService(VeterinarioRepository veterinarioRepository) {
         this.veterinarioRepository = veterinarioRepository;
     }
-    public VeterinarioEntity save(VeterinarioDTO veterinarioDTO){
+    public VeterinarioResponseDTO save(VeterinarioDTO veterinarioDTO){
         boolean cpfExistente = veterinarioRepository.existsByCpfVeterinario(veterinarioDTO.cpfVeterinario());
 
         if (cpfExistente) {
@@ -23,7 +24,9 @@ public class VeterinarioService {
         veterinarioEntity.setNomeVeterinario(veterinarioDTO.nomeVeterinario());
         veterinarioEntity.setEspecialidade(veterinarioDTO.especialidadeVeterinario());
         veterinarioEntity.setTelefoneVeterinario(veterinarioDTO.telefoneVeterinario());
+        veterinarioEntity.setCpfVeterinario(veterinarioDTO.cpfVeterinario());
 
-        return veterinarioRepository.save(veterinarioEntity);
+        VeterinarioEntity veterinarioSalvo = veterinarioRepository.save(veterinarioEntity);
+        return new VeterinarioResponseDTO(veterinarioSalvo);
     }
 }

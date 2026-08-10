@@ -2,7 +2,7 @@ package com.clinica.veterinaria.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+        import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,4 +29,7 @@ public class VeterinarioEntity {
 
     @Column(name = "telefone_veterinario", nullable = false)
     private String telefoneVeterinario;
+
+    @Column(name = "cpf_veterinario")
+    private String cpfVeterinario;
 }
