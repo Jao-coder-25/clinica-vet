@@ -1,6 +1,7 @@
 package com.clinica.veterinaria.service;
 
 import com.clinica.veterinaria.dto.request.ConsultaDTO;
+import com.clinica.veterinaria.dto.response.ConsultaResponseDTO;
 import com.clinica.veterinaria.entity.ConsultaEntity;
 import com.clinica.veterinaria.repository.ConsultaRepository;
 import com.clinica.veterinaria.repository.PetRepository;
@@ -19,7 +20,7 @@ public class ConsultaService {
         this.veterinarioRepository = veterinarioRepository;
         this.petRepository = petRepository;
     }
-    public ConsultaEntity save(ConsultaDTO consultaDTO) {
+    public ConsultaResponseDTO save(ConsultaDTO consultaDTO) {
 
         if (!veterinarioRepository.existsById(consultaDTO.idVeterinario())){
             throw new IllegalArgumentException("Veterinário não encontrado.");
@@ -32,6 +33,8 @@ public class ConsultaService {
         consultaEntity.setDataConsulta(consultaDTO.dataConsulta());
         consultaEntity.setVeterinario(veterinarioRepository.getReferenceById(consultaDTO.idVeterinario()));
         consultaEntity.setPet(petRepository.getReferenceById(consultaDTO.idPet()));
-        return consultaRepository.save(consultaEntity);
+
+        ConsultaEntity consultaSalva = consultaRepository.save(consultaEntity);
+        return new ConsultaResponseDTO(consultaSalva);
     }
 }

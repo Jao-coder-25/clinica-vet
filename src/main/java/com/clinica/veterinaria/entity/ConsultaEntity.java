@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -28,7 +28,7 @@ public class ConsultaEntity {
     private String tipoConsulta;
 
     @Column (name = "data_consulta", nullable = false)
-    private LocalDate dataConsulta;
+    private LocalDateTime dataConsulta;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "id_pet", nullable = false)
