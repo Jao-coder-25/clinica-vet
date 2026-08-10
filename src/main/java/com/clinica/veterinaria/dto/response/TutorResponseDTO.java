@@ -1,4 +1,15 @@
 package com.clinica.veterinaria.dto.response;
 
-public class TutorResponseDTO {
+import com.clinica.veterinaria.entity.TutorEntity;
+
+public record TutorResponseDTO(
+        Long idTutor,
+        String nomeTutor,
+        String telefoneTutor
+) {
+    // Construtor que transforma a Entity em DTO de forma automática
+    public TutorResponseDTO(TutorEntity tutor) {
+        this(tutor.getIdTutor(), tutor.getNomeTutor(), tutor.getTelefoneTutor());
+    }
 }
+
