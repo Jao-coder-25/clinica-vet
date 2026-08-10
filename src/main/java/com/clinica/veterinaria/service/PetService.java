@@ -1,6 +1,7 @@
 package com.clinica.veterinaria.service;
 
 import com.clinica.veterinaria.dto.request.PetDTO;
+import com.clinica.veterinaria.dto.response.PetResponseDTO;
 import com.clinica.veterinaria.entity.PetEntity;
 import com.clinica.veterinaria.repository.PetRepository;
 import com.clinica.veterinaria.repository.TutorRepository;
@@ -17,8 +18,7 @@ public class PetService {
         this.tutorRepository = tutorRepository;
     }
 
-    public PetEntity save(PetDTO petDTO) {
-
+    public PetResponseDTO save(PetDTO petDTO) {
         Long IdTutor = petDTO.idTutor();
         boolean tutorExists = tutorRepository.existsById(IdTutor);
 
@@ -34,6 +34,8 @@ public class PetService {
         petEntity.setDataNascimento(petDTO.dataNascimentoPet());
         petEntity.setTutor(tutorRepository.getReferenceById(IdTutor));
 
-        return petRepository.save(petEntity);
+        PetEntity petSalvo = petRepository.save(petEntity);
+
+        return new PetResponseDTO(petSalvo);
     }
 }
