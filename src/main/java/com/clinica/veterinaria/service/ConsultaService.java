@@ -28,13 +28,13 @@ public class ConsultaService {
         if (!petRepository.existsById(consultaDTO.idPet())){
             throw new IllegalArgumentException("Pet não encontrado.");
         }
-        ConsultaEntity consultaEntity = new ConsultaEntity();
-        consultaEntity.setTipoConsulta(consultaDTO.tipoConsulta());
-        consultaEntity.setDataConsulta(consultaDTO.dataConsulta());
-        consultaEntity.setVeterinario(veterinarioRepository.getReferenceById(consultaDTO.idVeterinario()));
-        consultaEntity.setPet(petRepository.getReferenceById(consultaDTO.idPet()));
+        ConsultaEntity consultaEntity = ConsultaEntity.builder()
+                .tipoConsulta(consultaDTO.tipoConsulta())
+                .dataConsulta(consultaDTO.dataConsulta())
+                .veterinario(veterinarioRepository.getReferenceById(consultaDTO.idVeterinario()))
+                .pet(petRepository.getReferenceById(consultaDTO.idPet()))
+                .build();
 
-        ConsultaEntity consultaSalva = consultaRepository.save(consultaEntity);
-        return new ConsultaResponseDTO(consultaSalva);
+        return new ConsultaResponseDTO(consultaRepository.save(consultaEntity));
     }
 }

@@ -20,13 +20,13 @@ public class VeterinarioService {
         if (cpfExistente) {
             throw new IllegalArgumentException("O CPF informado já está cadastrado.");
         }
-        VeterinarioEntity veterinarioEntity = new VeterinarioEntity();
-        veterinarioEntity.setNomeVeterinario(veterinarioDTO.nomeVeterinario());
-        veterinarioEntity.setEspecialidade(veterinarioDTO.especialidadeVeterinario());
-        veterinarioEntity.setTelefoneVeterinario(veterinarioDTO.telefoneVeterinario());
-        veterinarioEntity.setCpfVeterinario(veterinarioDTO.cpfVeterinario());
+        VeterinarioEntity veterinarioEntity = VeterinarioEntity.builder()
+                .nomeVeterinario(veterinarioDTO.nomeVeterinario())
+                .especialidade(veterinarioDTO.especialidadeVeterinario())
+                .telefoneVeterinario(veterinarioDTO.telefoneVeterinario())
+                .cpfVeterinario(veterinarioDTO.cpfVeterinario())
+                .build();
 
-        VeterinarioEntity veterinarioSalvo = veterinarioRepository.save(veterinarioEntity);
-        return new VeterinarioResponseDTO(veterinarioSalvo);
+        return new VeterinarioResponseDTO(veterinarioRepository.save(veterinarioEntity));
     }
 }

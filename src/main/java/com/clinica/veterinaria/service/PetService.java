@@ -26,16 +26,15 @@ public class PetService {
             throw new IllegalArgumentException("O tutor com ID " + IdTutor + " não existe.");
         }
 
-        PetEntity petEntity = new PetEntity();
-        petEntity.setNomePet(petDTO.nomePet());
-        petEntity.setEspecie(petDTO.especiePet());
-        petEntity.setRaca(petDTO.racaPet());
-        petEntity.setSexo(petDTO.sexoPet());
-        petEntity.setDataNascimento(petDTO.dataNascimentoPet());
-        petEntity.setTutor(tutorRepository.getReferenceById(IdTutor));
+        PetEntity petEntity = PetEntity.builder()
+                .nomePet(petDTO.nomePet())
+                .especie(petDTO.especiePet())
+                .raca(petDTO.racaPet())
+                .sexo(petDTO.sexoPet())
+                .dataNascimento(petDTO.dataNascimentoPet())
+                .tutor(tutorRepository.getReferenceById(IdTutor))
+                .build();
 
-        PetEntity petSalvo = petRepository.save(petEntity);
-
-        return new PetResponseDTO(petSalvo);
+        return new PetResponseDTO(petRepository.save(petEntity));
     }
 }

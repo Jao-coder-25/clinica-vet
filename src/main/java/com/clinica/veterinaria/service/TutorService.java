@@ -22,13 +22,12 @@ public class TutorService {
             throw new IllegalArgumentException("O CPF informado já está cadastrado.");
         }
 
-    TutorEntity tutorEntity = new TutorEntity();
-    tutorEntity.setNomeTutor(tutorDTO.nomeTutor());
-    tutorEntity.setCpfTutor(tutorDTO.cpfTutor());
-    tutorEntity.setTelefoneTutor(tutorDTO.telefoneTutor());
+    TutorEntity tutorEntity = TutorEntity.builder()
+            .nomeTutor(tutorDTO.nomeTutor())
+            .cpfTutor(tutorDTO.cpfTutor())
+            .telefoneTutor(tutorDTO.telefoneTutor())
+            .build();
 
-    TutorEntity tutorSalvo = tutorRepository.save(tutorEntity);
-
-    return new TutorResponseDTO(tutorSalvo);
+    return new TutorResponseDTO(tutorRepository.save(tutorEntity));
     }
 }
