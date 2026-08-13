@@ -18,9 +18,16 @@ public class PetController {
     public PetController(PetService petService) {
         this.petService = petService;
     }
+
     @PostMapping
     public ResponseEntity<PetResponseDTO> save(@RequestBody @Valid PetDTO petDTO) {
         PetResponseDTO petSalvo = petService.save(petDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(petSalvo);
+    }
+
+    @DeleteMapping("/{idPet}")
+    public ResponseEntity<Void> delete(@PathVariable Long idPet) {
+        petService.delete(idPet);
+        return ResponseEntity.noContent().build();
     }
 }
