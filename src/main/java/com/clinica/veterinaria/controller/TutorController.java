@@ -24,4 +24,9 @@ public class TutorController {
         TutorResponseDTO tutorSalvo = tutorService.save(tutorDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(tutorSalvo);
     }
+    @DeleteMapping("/{idTutor}")
+    public ResponseEntity<Void> delete(@PathVariable Long idTutor) {
+        tutorService.delete(idTutor);
+        return ResponseEntity.noContent().build();
+    }
 }
