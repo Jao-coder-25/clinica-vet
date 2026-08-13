@@ -1,4 +1,4 @@
-package com.clinica.veterinaria.exceptions.dto.request;
+package com.clinica.veterinaria.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotBlank;

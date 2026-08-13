@@ -1,4 +1,4 @@
-package com.clinica.veterinaria.exceptions.dto.response;
+package com.clinica.veterinaria.dto.response;
 
 import com.clinica.veterinaria.entity.VeterinarioEntity;
 
