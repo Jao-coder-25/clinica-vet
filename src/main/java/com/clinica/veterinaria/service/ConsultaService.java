@@ -38,10 +38,10 @@ public class ConsultaService {
 
         return new ConsultaResponseDTO(consultaRepository.save(consultaEntity));
     }
-    public ConsultaResponseDTO delete(Long idConsulta) {
-        ConsultaEntity consulta = consultaRepository.findById(idConsulta)
-                .orElseThrow(() -> new IllegalArgumentException("Consulta não encontrada."));
+    public void delete(Long idConsulta) {
+        if(!consultaRepository.existsById(idConsulta)){
+            throw  new IllegalArgumentException("A consulta com o ID informado não existe.");
+        }
         consultaRepository.deleteById(idConsulta);
-        return new ConsultaResponseDTO((consulta));
     }
 }
