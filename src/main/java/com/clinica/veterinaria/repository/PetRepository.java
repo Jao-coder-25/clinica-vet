@@ -4,4 +4,7 @@ import com.clinica.veterinaria.entity.PetEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PetRepository extends JpaRepository<PetEntity, Long> {
+
+    boolean existsByTutorIdTutor(Long idtutor);
+
 }
