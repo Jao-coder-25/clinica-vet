@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ConsultaRepository extends JpaRepository<ConsultaEntity, Long> {
 
     boolean existsByVeterinarioIdVeterinario(Long idVeterinario);
+    boolean existsByPetIdPet(Long idPet);
+
 }
