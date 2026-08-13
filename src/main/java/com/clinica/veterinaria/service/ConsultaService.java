@@ -6,6 +6,7 @@ import com.clinica.veterinaria.entity.ConsultaEntity;
 import com.clinica.veterinaria.repository.ConsultaRepository;
 import com.clinica.veterinaria.repository.PetRepository;
 import com.clinica.veterinaria.repository.VeterinarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,5 +37,11 @@ public class ConsultaService {
                 .build();
 
         return new ConsultaResponseDTO(consultaRepository.save(consultaEntity));
+    }
+    public ConsultaResponseDTO delete(Long idConsulta) {
+        ConsultaEntity consulta = consultaRepository.findById(idConsulta)
+                .orElseThrow(() -> new IllegalArgumentException("Consulta não encontrada."));
+        consultaRepository.deleteById(idConsulta);
+        return new ConsultaResponseDTO((consulta));
     }
 }
