@@ -29,6 +29,6 @@ public record PetDTO(
         LocalDate dataNascimentoPet,
 
         @NotNull(message = "O ID do tutor é obrigatório.")
-        @JsonAlias({"tutor", "tutorPet"})
+        @JsonAlias({"id_tutor", "idTutor"})
         Long idTutor
 ) {}
