@@ -3,7 +3,6 @@ package com.clinica.veterinaria.service;
 import com.clinica.veterinaria.dto.request.TutorDTO;
 import com.clinica.veterinaria.dto.response.TutorResponseDTO;
 import com.clinica.veterinaria.entity.TutorEntity;
-import com.clinica.veterinaria.repository.ConsultaRepository;
 import com.clinica.veterinaria.repository.PetRepository;
 import com.clinica.veterinaria.repository.TutorRepository;
 import org.springframework.stereotype.Service;
