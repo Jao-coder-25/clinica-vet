@@ -3,8 +3,8 @@ package com.clinica.veterinaria.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 @Entity
@@ -26,7 +26,10 @@ public class ConsultaEntity {
     private String tipoConsulta;
 
     @Column (name = "data_consulta", nullable = false)
-    private LocalDateTime dataConsulta;
+    private LocalDate dataConsulta;
+
+    @Column (name = "horario_consulta", nullable = false)
+    private LocalTime horarioConsulta;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "id_pet", nullable = false)
