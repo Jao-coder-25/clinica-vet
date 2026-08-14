@@ -1,12 +1,14 @@
 package com.clinica.veterinaria.dto.response;
 
 import com.clinica.veterinaria.entity.ConsultaEntity;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public record ConsultaResponseDTO(
         Long idConsulta,
         String tipoConsulta,
-        LocalDateTime dataConsulta,
+        LocalDate dataConsulta,
+        LocalTime horarioConsulta,
         Long idPet,
         String nomePet,
         Long idVeterinario,
@@ -20,6 +22,7 @@ public record ConsultaResponseDTO(
                 consulta.getIdConsulta(),
                 consulta.getTipoConsulta(),
                 consulta.getDataConsulta(),
+                consulta.getHorarioConsulta(),
                 consulta.getPet().getIdPet(),
                 consulta.getPet().getNomePet(),
                 consulta.getVeterinario().getIdVeterinario(),
