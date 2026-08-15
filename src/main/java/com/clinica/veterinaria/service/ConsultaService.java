@@ -6,7 +6,6 @@ import com.clinica.veterinaria.entity.ConsultaEntity;
 import com.clinica.veterinaria.repository.ConsultaRepository;
 import com.clinica.veterinaria.repository.PetRepository;
 import com.clinica.veterinaria.repository.VeterinarioRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,6 +31,7 @@ public class ConsultaService {
         ConsultaEntity consultaEntity = ConsultaEntity.builder()
                 .tipoConsulta(consultaDTO.tipoConsulta())
                 .dataConsulta(consultaDTO.dataConsulta())
+                .horarioConsulta(consultaDTO.horarioConsulta())
                 .veterinario(veterinarioRepository.getReferenceById(consultaDTO.idVeterinario()))
                 .pet(petRepository.getReferenceById(consultaDTO.idPet()))
                 .build();
