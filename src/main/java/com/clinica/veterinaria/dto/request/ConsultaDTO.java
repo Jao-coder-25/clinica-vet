@@ -2,8 +2,8 @@ package com.clinica.veterinaria.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.*;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public record ConsultaDTO(
 
@@ -13,7 +13,11 @@ public record ConsultaDTO(
 
         @NotNull(message = "A data da consulta é obrigatória.")
         @JsonAlias({"data_consulta"})
-        LocalDateTime dataConsulta,
+        LocalDate dataConsulta,
+
+        @NotNull(message = "O horário da consulta é obrigatório.")
+        @JsonAlias({"horario_consulta"})
+        LocalTime horarioConsulta,
 
         @NotNull(message = "O ID do veterinário é obrigatório.")
         @JsonAlias({"id_veterinario"})
