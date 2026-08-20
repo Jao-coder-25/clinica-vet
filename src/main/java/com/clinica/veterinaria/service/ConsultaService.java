@@ -75,4 +75,12 @@ public class ConsultaService {
         }
         return horariosLivres;
     }
+    public List<ConsultaResponseDTO> mostrarListaConsultas (Long idConsulta) {
+        List<ConsultaEntity> consultas = consultaRepository.findAllById(idConsulta);
+
+        return consultas.stream()
+                .map(consulta -> new ConsultaResponseDTO(consulta))
+                .toList();
+
+    }
 }
