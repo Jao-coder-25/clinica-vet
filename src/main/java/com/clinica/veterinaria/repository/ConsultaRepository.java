@@ -1,5 +1,6 @@
 package com.clinica.veterinaria.repository;
 
+import com.clinica.veterinaria.dto.response.ConsultaResponseDTO;
 import com.clinica.veterinaria.entity.ConsultaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,5 @@ public interface ConsultaRepository extends JpaRepository<ConsultaEntity, Long> 
     boolean existsByPetIdPet(Long idPet);
     @Query("SELECT c.horarioConsulta FROM ConsultaEntity c WHERE c.dataConsulta = :dataConsulta")
     List<LocalTime> findHorariosOcupadosPorData(LocalDate dataConsulta);
+    List<ConsultaResponseDTO> findAllById(Long idConsulta);
 }
