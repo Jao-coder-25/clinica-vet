@@ -76,7 +76,7 @@ public class ConsultaService {
         return horariosLivres;
     }
     public List<ConsultaResponseDTO> mostrarListaConsultas (Long idConsulta) {
-        List<ConsultaEntity> consultas = consultaRepository.findAllById(idConsulta);
+        List<ConsultaEntity> consultas = consultaRepository.findAllByIdConsulta(idConsulta);
 
         return consultas.stream()
                 .map(consulta -> new ConsultaResponseDTO(consulta))
