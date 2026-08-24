@@ -15,5 +15,4 @@ public interface ConsultaRepository extends JpaRepository<ConsultaEntity, Long> 
     boolean existsByPetIdPet(Long idPet);
     @Query("SELECT c.horarioConsulta FROM ConsultaEntity c WHERE c.dataConsulta = :dataConsulta")
     List<LocalTime> findHorariosOcupadosPorData(@Param("dataConsulta") LocalDate dataConsulta);
-    List<ConsultaEntity> findAllByIdConsulta(Long idConsulta);
 }
