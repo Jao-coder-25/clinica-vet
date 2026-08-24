@@ -40,9 +40,9 @@ public class ConsultaController {
         List<HorarioDisponivelResponseDTO> resposta = consultaService.listarHorarioDisponiveis(data);
         return ResponseEntity.ok(resposta);
     }
-    @GetMapping("/{idConsulta}")
-    public ResponseEntity<List<ConsultaResponseDTO>> ListarConsultas(@PathVariable Long idConsulta) {
-        List<ConsultaResponseDTO> lista = consultaService.mostrarListaConsultas(idConsulta);
+    @GetMapping("/agendadas")
+    public ResponseEntity<List<ConsultaResponseDTO>> ListarConsultas() {
+        List<ConsultaResponseDTO> lista = consultaService.mostrarListaConsultas();
         return ResponseEntity.ok(lista);
     }
 }
