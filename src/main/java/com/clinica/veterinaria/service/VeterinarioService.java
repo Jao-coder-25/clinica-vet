@@ -5,7 +5,6 @@ import com.clinica.veterinaria.dto.response.VeterinarioResponseDTO;
 import com.clinica.veterinaria.entity.VeterinarioEntity;
 import com.clinica.veterinaria.repository.ConsultaRepository;
 import com.clinica.veterinaria.repository.VeterinarioRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
