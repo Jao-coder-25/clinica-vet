@@ -2,6 +2,7 @@ package com.clinica.veterinaria.service;
 
 import com.clinica.veterinaria.dto.request.TutorDTO;
 import com.clinica.veterinaria.entity.TutorEntity;
+import com.clinica.veterinaria.repository.PetRepository;
 import com.clinica.veterinaria.repository.TutorRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class TutorServiceTest {
+
+    @Mock
+    private PetRepository petRepository;
 
     @Mock
     private TutorRepository tutorRepository;
