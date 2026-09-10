@@ -1,5 +1,6 @@
 package com.clinica.veterinaria.controller;
 
+import com.clinica.veterinaria.config.TutorOpenAPI;
 import com.clinica.veterinaria.dto.request.TutorDTO;
 import com.clinica.veterinaria.dto.response.TutorResponseDTO;
 import com.clinica.veterinaria.entity.TutorEntity;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/tutores")
-public class TutorController {
+public class TutorController implements TutorOpenAPI {
 
     private final TutorService tutorService;
 
@@ -20,11 +21,13 @@ public class TutorController {
     }
 
     @PostMapping
+    @Override
     public ResponseEntity<TutorResponseDTO> save(@RequestBody @Valid TutorDTO tutorDTO) {
         TutorResponseDTO tutorSalvo = tutorService.save(tutorDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(tutorSalvo);
     }
     @DeleteMapping("/{idTutor}")
+    @Override
     public ResponseEntity<Void> delete(@PathVariable Long idTutor) {
         tutorService.delete(idTutor);
         return ResponseEntity.noContent().build();
