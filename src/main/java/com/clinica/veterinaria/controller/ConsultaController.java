@@ -1,5 +1,6 @@
 package com.clinica.veterinaria.controller;
 
+import com.clinica.veterinaria.config.ConsultaOpenAPI;
 import com.clinica.veterinaria.dto.request.ConsultaDTO;
 import com.clinica.veterinaria.dto.response.ConsultaResponseDTO;
 import com.clinica.veterinaria.dto.response.HorarioDisponivelResponseDTO;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/consultas")
-public class ConsultaController {
+public class ConsultaController implements ConsultaOpenAPI {
 
     private final ConsultaService consultaService;
 
@@ -24,23 +25,27 @@ public class ConsultaController {
     }
 
     @PostMapping
+    @Override
     public ResponseEntity<ConsultaResponseDTO> save(@RequestBody @Valid ConsultaDTO consultaDTO) {
         ConsultaResponseDTO salvarConsulta = consultaService.save(consultaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvarConsulta);
     }
 
     @DeleteMapping("/{idConsulta}")
+    @Override
     public ResponseEntity<Void> delete(@PathVariable Long idConsulta) {
         consultaService.delete(idConsulta);
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/horarios-disponiveis")
+    @Override
     public ResponseEntity<List<HorarioDisponivelResponseDTO>> buscarHorariosDisponiveis (
             @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data){
         List<HorarioDisponivelResponseDTO> resposta = consultaService.listarHorarioDisponiveis(data);
         return ResponseEntity.ok(resposta);
     }
     @GetMapping("/agendadas")
+    @Override
     public ResponseEntity<List<ConsultaResponseDTO>> ListarConsultas() {
         List<ConsultaResponseDTO> lista = consultaService.mostrarListaConsultas();
         return ResponseEntity.ok(lista);
