@@ -1,5 +1,6 @@
 package com.clinica.veterinaria.controller;
 
+import com.clinica.veterinaria.config.VeterinarioOpenAPI;
 import com.clinica.veterinaria.dto.request.VeterinarioDTO;
 import com.clinica.veterinaria.dto.response.VeterinarioResponseDTO;
 import com.clinica.veterinaria.service.VeterinarioService;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/veterinarios")
-public class VeterinarioController {
+public class VeterinarioController implements VeterinarioOpenAPI {
 
     private final VeterinarioService veterinarioService;
 
@@ -19,11 +20,13 @@ public class VeterinarioController {
     }
 
     @PostMapping
+    @Override
     public ResponseEntity<VeterinarioResponseDTO> save(@RequestBody @Valid VeterinarioDTO veterinarioDTO) {
         VeterinarioResponseDTO salvarVeterinario = veterinarioService.save(veterinarioDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvarVeterinario);
     }
     @DeleteMapping("/{idVeterinario}")
+    @Override
     public ResponseEntity<Void> delete(@PathVariable Long idVeterinario) {
         veterinarioService.delete(idVeterinario);
         return ResponseEntity.noContent().build();
