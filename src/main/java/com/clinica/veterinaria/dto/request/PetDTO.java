@@ -12,10 +12,6 @@ public record PetDTO(
         @JsonAlias({"nome", "nomePet"})
         String nomePet,
 
-        @NotBlank(message = "A espécie do pet é obrigatória.")
-        @JsonAlias({"especie", "especiePet"})
-        String especiePet,
-
         @NotBlank(message = "A raça do pet é obrigatória.")
         @JsonAlias({"raca", "racaPet"})
         String racaPet,
