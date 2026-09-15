@@ -34,6 +34,11 @@ public class ConsultaService {
         if (!petRepository.existsById(consultaDTO.idPet())){
             throw new IllegalArgumentException("Pet não encontrado.");
         }
+
+        boolean consultaExistente = consultaRepository.existsByDataConsultaAndHorarioConsulta(consultaDTO.dataConsulta(), consultaDTO.horarioConsulta());
+        if (consultaExistente) {
+            throw new IllegalArgumentException("Horário para onsulta indisponível. Tente outro horário!");
+        }
         ConsultaEntity consultaEntity = ConsultaEntity.builder()
                 .tipoConsulta(consultaDTO.tipoConsulta())
                 .dataConsulta(consultaDTO.dataConsulta())
