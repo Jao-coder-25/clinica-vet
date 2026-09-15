@@ -31,7 +31,6 @@ public class PetService {
 
         PetEntity petEntity = PetEntity.builder()
                 .nomePet(petDTO.nomePet())
-                .especie(petDTO.especiePet())
                 .raca(petDTO.racaPet())
                 .sexo(petDTO.sexoPet())
                 .dataNascimento(petDTO.dataNascimentoPet())
