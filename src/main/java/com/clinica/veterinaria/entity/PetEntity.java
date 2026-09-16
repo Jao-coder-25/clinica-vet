@@ -24,8 +24,6 @@ public class PetEntity {
     @Column (name = "nome_pet", nullable = false)
     private String nomePet;
 
-    @Column (name = "especie", nullable = false)
-    private String especie;
 
     @Column (name = "raca", nullable = false)
     private String raca;
