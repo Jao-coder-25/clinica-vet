@@ -37,7 +37,7 @@ public class ConsultaService {
 
         boolean consultaExistente = consultaRepository.existsByDataConsultaAndHorarioConsulta(consultaDTO.dataConsulta(), consultaDTO.horarioConsulta());
         if (consultaExistente) {
-            throw new IllegalArgumentException("Horário para onsulta indisponível. Tente outro horário!");
+            throw new IllegalArgumentException("Horário para consulta indisponível. Tente outro horário!");
         }
         ConsultaEntity consultaEntity = ConsultaEntity.builder()
                 .tipoConsulta(consultaDTO.tipoConsulta())
