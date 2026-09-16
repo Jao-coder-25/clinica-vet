@@ -1,6 +1,7 @@
 package com.clinica.veterinaria.service;
 
 import com.clinica.veterinaria.dto.request.TutorDTO;
+import com.clinica.veterinaria.entity.PetEntity;
 import com.clinica.veterinaria.entity.TutorEntity;
 import com.clinica.veterinaria.repository.PetRepository;
 import com.clinica.veterinaria.repository.TutorRepository;
@@ -68,5 +69,30 @@ class TutorServiceTest {
         Mockito.verify(tutorRepository).existsByCpfTutor(tutorDTO.cpfTutor());
         // Verifica se o save do repositório não foi chamado
         Mockito.verify(tutorRepository, Mockito.never()).save(Mockito.any(TutorEntity.class));
+    }
+
+
+    @Test
+    @DisplayName("Deve remover o tutor caso o ID exista no banco e pertença a um tutor")
+    void deleteCase1() {
+        TutorEntity tutorEntity = TutorEntity.builder()
+                .idTutor(1L)
+                .build();
+
+        Mockito.when(tutorRepository.existsById(tutorEntity.getIdTutor())).thenReturn(true);
+        Mockito.when(petRepository.existsByTutorIdTutor(tutorEntity.getIdTutor())).thenReturn(false);
+
+        tutorService.delete(tutorEntity.getIdTutor());
+
+        ArgumentCaptor<TutorEntity> captor = ArgumentCaptor.forClass(TutorEntity.class);
+
+        Mockito.verify(tutorRepository).delete(captor.capture());
+
+        TutorEntity tutorDeletado = captor.getValue();
+
+        Mockito.verify(tutorRepository).existsById(tutorEntity.getIdTutor());
+        Mockito.verify(petRepository).existsByTutorIdTutor(tutorEntity.getIdTutor());
+
+        assertEquals(tutorEntity.getIdTutor(), tutorDeletado.getIdTutor());
     }
 }
