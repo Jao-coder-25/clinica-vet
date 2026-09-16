@@ -1,7 +1,6 @@
 package com.clinica.veterinaria.service;
 
 import com.clinica.veterinaria.dto.request.TutorDTO;
-import com.clinica.veterinaria.entity.PetEntity;
 import com.clinica.veterinaria.entity.TutorEntity;
 import com.clinica.veterinaria.repository.PetRepository;
 import com.clinica.veterinaria.repository.TutorRepository;
@@ -13,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,10 +19,8 @@ class TutorServiceTest {
 
     @Mock
     private PetRepository petRepository;
-
     @Mock
     private TutorRepository tutorRepository;
-
     @InjectMocks
     private TutorService tutorService;
 
@@ -56,6 +52,7 @@ class TutorServiceTest {
         assertEquals(tutorDTO.cpfTutor(), tutorSalvo.getCpfTutor());
         assertEquals(tutorDTO.telefoneTutor(), tutorSalvo.getTelefoneTutor());
     }
+
     @Test
     @DisplayName("Deve lançar exceção ao tentar salvar um tutor com CPF já existente")
     void saveCase2() {
@@ -71,7 +68,6 @@ class TutorServiceTest {
         Mockito.verify(tutorRepository, Mockito.never()).save(Mockito.any(TutorEntity.class));
     }
 
-
     @Test
     @DisplayName("Deve remover o tutor caso o ID exista no banco e pertença a um tutor")
     void deleteCase1() {
@@ -84,15 +80,8 @@ class TutorServiceTest {
 
         tutorService.delete(tutorEntity.getIdTutor());
 
-        ArgumentCaptor<TutorEntity> captor = ArgumentCaptor.forClass(TutorEntity.class);
-
-        Mockito.verify(tutorRepository).delete(captor.capture());
-
-        TutorEntity tutorDeletado = captor.getValue();
-
         Mockito.verify(tutorRepository).existsById(tutorEntity.getIdTutor());
         Mockito.verify(petRepository).existsByTutorIdTutor(tutorEntity.getIdTutor());
-
-        assertEquals(tutorEntity.getIdTutor(), tutorDeletado.getIdTutor());
+        Mockito.verify(tutorRepository).deleteById(tutorEntity.getIdTutor());
     }
 }
