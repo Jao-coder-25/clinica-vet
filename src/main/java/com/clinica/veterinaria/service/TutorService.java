@@ -2,10 +2,12 @@ package com.clinica.veterinaria.service;
 
 import com.clinica.veterinaria.dto.request.TutorDTO;
 import com.clinica.veterinaria.dto.response.TutorResponseDTO;
+import com.clinica.veterinaria.dto.update.TutorUpdateDTO;
 import com.clinica.veterinaria.entity.TutorEntity;
 import com.clinica.veterinaria.repository.PetRepository;
 import com.clinica.veterinaria.repository.TutorRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TutorService {
@@ -41,5 +43,14 @@ public class TutorService {
             throw new IllegalArgumentException("Não é possível excluir o tutor, pois ele possui pets associados.");
         }
         tutorRepository.deleteById(idTutor);
+    }
+    @Transactional
+    public TutorResponseDTO update(Long idTutor, TutorUpdateDTO tutorUpdateDTO) {
+        TutorEntity tutorEntity = tutorRepository.findById(idTutor)
+                .orElseThrow (() -> new IllegalArgumentException("Tutor não encontrado"));
+
+        tutorEntity.setTelefoneTutor(tutorUpdateDTO.telefoneTutor());
+
+        return new TutorResponseDTO(tutorEntity);
     }
 }
