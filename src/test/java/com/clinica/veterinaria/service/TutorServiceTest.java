@@ -98,7 +98,7 @@ class TutorServiceTest {
     }
 
     @Test
-    @DisplayName("Lançar exceção caso o ID solicitado não pertença a um tutor")
+    @DisplayName("Não permitir a exclusão do Tutor caso o ID solicitado não pertença a um tutor")
     void deleteCase2() {
         Long idTutor = 2L;
 
@@ -110,6 +110,23 @@ class TutorServiceTest {
         );
 
         Mockito.verify(tutorRepository).existsById(idTutor);
+        Mockito.verify(tutorRepository, Mockito.never()).deleteById(idTutor);
+    }
+
+    @Test
+    @DisplayName("Não permitir a exclusão do Tutor caso haja um pet vinculado a ele")
+    void deleteCase3 () {
+        Long idTutor = 3L;
+
+        Mockito.when(tutorRepository.existsById(idTutor)).thenReturn(true);
+        Mockito.when(petRepository.existsByTutorIdTutor(idTutor)).thenReturn(true);
+
+        assertThrows(
+                IllegalArgumentException.class, () -> tutorService.delete(idTutor)
+        );
+
+        Mockito.verify(tutorRepository).existsById(idTutor);
+        Mockito.verify(petRepository).existsByTutorIdTutor(idTutor);
         Mockito.verify(tutorRepository, Mockito.never()).deleteById(idTutor);
     }
 
