@@ -4,7 +4,6 @@ import com.clinica.veterinaria.config.TutorOpenAPI;
 import com.clinica.veterinaria.dto.request.TutorDTO;
 import com.clinica.veterinaria.dto.response.TutorResponseDTO;
 import com.clinica.veterinaria.dto.update.TutorUpdateDTO;
-import com.clinica.veterinaria.entity.TutorEntity;
 import com.clinica.veterinaria.service.TutorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -34,6 +33,7 @@ public class TutorController implements TutorOpenAPI {
         return ResponseEntity.noContent().build();
     }
     @PutMapping("/{idTutor}")
+    @Override
     public ResponseEntity<TutorResponseDTO> update(@PathVariable Long idTutor, @RequestBody @Valid TutorUpdateDTO tutorUpdateDTO) {
         TutorResponseDTO response = tutorService.update(idTutor, tutorUpdateDTO);
         return ResponseEntity.ok(response);
