@@ -14,9 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -97,6 +95,22 @@ class TutorServiceTest {
         Mockito.verify(tutorRepository).existsById(tutorEntity.getIdTutor());
         Mockito.verify(petRepository).existsByTutorIdTutor(tutorEntity.getIdTutor());
         Mockito.verify(tutorRepository).deleteById(tutorEntity.getIdTutor());
+    }
+
+    @Test
+    @DisplayName("Lançar exceção caso o ID solicitado não pertença a um tutor")
+    void deleteCase2() {
+        Long idTutor = 2L;
+
+        Mockito.when(tutorRepository.existsById(idTutor)).thenReturn(false);
+
+
+        assertThrows(
+                IllegalArgumentException.class, () -> tutorService.delete(idTutor)
+        );
+
+        Mockito.verify(tutorRepository).existsById(idTutor);
+        Mockito.verify(tutorRepository, Mockito.never()).deleteById(idTutor);
     }
 
     @Test
