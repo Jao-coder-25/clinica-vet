@@ -3,6 +3,7 @@ package com.clinica.veterinaria.controller;
 import com.clinica.veterinaria.config.TutorOpenAPI;
 import com.clinica.veterinaria.dto.request.TutorDTO;
 import com.clinica.veterinaria.dto.response.TutorResponseDTO;
+import com.clinica.veterinaria.dto.update.TutorUpdateDTO;
 import com.clinica.veterinaria.entity.TutorEntity;
 import com.clinica.veterinaria.service.TutorService;
 import jakarta.validation.Valid;
@@ -31,5 +32,10 @@ public class TutorController implements TutorOpenAPI {
     public ResponseEntity<Void> delete(@PathVariable Long idTutor) {
         tutorService.delete(idTutor);
         return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/{idTutor}")
+    public ResponseEntity<TutorResponseDTO> update(@PathVariable Long idTutor, @RequestBody @Valid TutorUpdateDTO tutorUpdateDTO) {
+        TutorResponseDTO response = tutorService.update(idTutor, tutorUpdateDTO);
+        return ResponseEntity.ok(response);
     }
 }
