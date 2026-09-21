@@ -1,6 +1,8 @@
 package com.clinica.veterinaria.service;
 
 import com.clinica.veterinaria.dto.request.TutorDTO;
+import com.clinica.veterinaria.dto.response.TutorResponseDTO;
+import com.clinica.veterinaria.dto.update.TutorUpdateDTO;
 import com.clinica.veterinaria.entity.TutorEntity;
 import com.clinica.veterinaria.repository.PetRepository;
 import com.clinica.veterinaria.repository.TutorRepository;
@@ -12,6 +14,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -19,8 +24,10 @@ class TutorServiceTest {
 
     @Mock
     private PetRepository petRepository;
+
     @Mock
     private TutorRepository tutorRepository;
+
     @InjectMocks
     private TutorService tutorService;
 
@@ -28,6 +35,7 @@ class TutorServiceTest {
     @DisplayName("Deve salvar um tutor com sucesso caso não exista outro tutor com o mesmo CPF")
     void saveCase1() {
         TutorDTO tutorDTO = new TutorDTO("João", "12345678901", "11999999999");
+
         TutorEntity tutorEntity = TutorEntity.builder()
                 .nomeTutor(tutorDTO.nomeTutor())
                 .cpfTutor(tutorDTO.cpfTutor())
@@ -61,11 +69,17 @@ class TutorServiceTest {
         Mockito.when(tutorRepository.existsByCpfTutor(tutorDTO.cpfTutor())).thenReturn(true);
 
         assertThrows(
-                IllegalArgumentException.class, () -> tutorService.save(tutorDTO));
+                IllegalArgumentException.class,
+                () -> tutorService.save(tutorDTO)
+        );
 
         Mockito.verify(tutorRepository).existsByCpfTutor(tutorDTO.cpfTutor());
+
         // Verifica se o save do repositório não foi chamado
-        Mockito.verify(tutorRepository, Mockito.never()).save(Mockito.any(TutorEntity.class));
+        Mockito.verify(
+                tutorRepository,
+                Mockito.never()
+        ).save(Mockito.any(TutorEntity.class));
     }
 
     @Test
@@ -83,5 +97,31 @@ class TutorServiceTest {
         Mockito.verify(tutorRepository).existsById(tutorEntity.getIdTutor());
         Mockito.verify(petRepository).existsByTutorIdTutor(tutorEntity.getIdTutor());
         Mockito.verify(tutorRepository).deleteById(tutorEntity.getIdTutor());
+    }
+
+    @Test
+    @DisplayName("Deve atualizar o telefone do tutor com sucesso")
+    void updateCase1() {
+        TutorEntity tutorEntity = new TutorEntity(
+                1L,
+                "Osvaldo",
+                "12354689111",
+                "11987654321"
+        );
+
+        TutorUpdateDTO tutorUpdateDTO = new TutorUpdateDTO("78945612311");
+
+        Mockito.when(tutorRepository.findById(tutorEntity.getIdTutor()))
+                .thenReturn(Optional.of(tutorEntity));
+
+        TutorResponseDTO tutorAlterado =
+                tutorService.update(tutorEntity.getIdTutor(), tutorUpdateDTO);
+
+        assertEquals(
+                tutorAlterado.telefoneTutor(),
+                tutorUpdateDTO.telefoneTutor()
+        );
+
+        Mockito.verify(tutorRepository).findById(tutorEntity.getIdTutor());
     }
 }
