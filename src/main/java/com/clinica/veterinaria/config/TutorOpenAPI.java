@@ -2,6 +2,7 @@ package com.clinica.veterinaria.config;
 
 import com.clinica.veterinaria.dto.request.TutorDTO;
 import com.clinica.veterinaria.dto.response.TutorResponseDTO;
+import com.clinica.veterinaria.dto.update.TutorUpdateDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -14,4 +15,7 @@ public interface TutorOpenAPI {
 
     @Operation(summary = "Deletar tutor", description = "Método que deleta o tutor")
     ResponseEntity<Void> delete(Long idTutor);
+
+    @Operation(summary = "Atualizar dado (s) do tutor", description = "Método que atualiza o (s) dado (s) do tutor")
+    ResponseEntity<TutorResponseDTO> update(Long idTutor, TutorUpdateDTO tutorUpdateDTO);
 }
