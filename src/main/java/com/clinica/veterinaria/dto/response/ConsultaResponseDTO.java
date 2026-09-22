@@ -6,13 +6,12 @@ import java.time.LocalTime;
 
 public record ConsultaResponseDTO(
         Long idConsulta,
+        String nomeTutor,
+        String nomePet,
+        String racaPet,
         String tipoConsulta,
         LocalDate dataConsulta,
-        LocalTime horarioConsulta,
-        Long idPet,
-        String nomePet,
-        Long idVeterinario,
-        String nomeVeterinario
+        LocalTime horarioConsulta
 ) {
     // CONSTRUTOR PERSONALIZADO (O Java identifica como construtor porque tem o mesmo nome do arquivo/Record e não possui tipo de retorno).
     // Ele funciona como um tradutor automático: extrai apenas os campos necessários da entidade do banco de dados,
@@ -20,13 +19,12 @@ public record ConsultaResponseDTO(
     public ConsultaResponseDTO(ConsultaEntity consulta) {
         this(
                 consulta.getIdConsulta(),
+                consulta.getPet().getTutor().getNomeTutor(),
+                consulta.getPet().getNomePet(),
+                consulta.getPet().getRaca(),
                 consulta.getTipoConsulta(),
                 consulta.getDataConsulta(),
-                consulta.getHorarioConsulta(),
-                consulta.getPet().getIdPet(),
-                consulta.getPet().getNomePet(),
-                consulta.getVeterinario().getIdVeterinario(),
-                consulta.getVeterinario().getNomeVeterinario()
+                consulta.getHorarioConsulta()
         );
     }
 }
