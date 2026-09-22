@@ -1,0 +1,2 @@
+ALTER TABLE tb_pet
+DROP COLUMN especie;
