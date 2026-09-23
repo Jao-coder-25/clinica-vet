@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
-@Tag(name = "Tutor", description = "Métodos de gereciamento de Pets")
+@Tag(name = "Pet", description = "Métodos de gereciamento de Pets")
 public interface PetOpenAPI {
 
     @Operation(summary = "Criar um novo Pet", description = "Método que salva um novo pet")
