@@ -50,4 +50,19 @@ class VeterinarioServiceTest {
 
         assertEquals(veterinarioDTO.cpfVeterinario(), veterinarioSalvo.getCpfVeterinario());
     }
+
+    @Test
+    @DisplayName("Não deve salvar caso o CPF informado seja igual ao de um veterinário já cadastrado")
+    void saveCase2 () {
+        VeterinarioDTO veterinarioDTO = new VeterinarioDTO("cirurgião", "Clebson", "7740028922", "12345678911");
+
+        Mockito.when(veterinarioRepository.existsByCpfVeterinario(veterinarioDTO.cpfVeterinario())).thenReturn(true);
+
+        assertThrows(
+                IllegalArgumentException.class, () -> veterinarioService.save(veterinarioDTO)
+        );
+
+        Mockito.verify(veterinarioRepository).existsByCpfVeterinario(veterinarioDTO.cpfVeterinario());
+        Mockito.verify(veterinarioRepository, Mockito.never()).save(Mockito.any(VeterinarioEntity.class));
+    }
 }
