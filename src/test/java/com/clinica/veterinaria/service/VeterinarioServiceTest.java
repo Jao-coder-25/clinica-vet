@@ -80,4 +80,19 @@ class VeterinarioServiceTest {
         Mockito.verify(consultaRepository).existsByVeterinarioIdVeterinario(idVeterinario);
         Mockito.verify(veterinarioRepository).deleteById(idVeterinario);
     }
+
+    @Test
+    @DisplayName("Deve lançar exceção caso o veterinário não exista")
+    void deleteCase2 () {
+        Long idVeterinario = 2L;
+
+        Mockito.when(veterinarioRepository.existsById(idVeterinario)).thenReturn(false);
+
+        assertThrows(
+                IllegalArgumentException.class, () -> veterinarioService.delete(idVeterinario)
+        );
+
+        Mockito.verify(veterinarioRepository).existsById(idVeterinario);
+        Mockito.verify(veterinarioRepository, Mockito.never()).deleteById(idVeterinario);
+    }
 }
