@@ -4,7 +4,6 @@ import com.clinica.veterinaria.dto.request.VeterinarioDTO;
 import com.clinica.veterinaria.entity.VeterinarioEntity;
 import com.clinica.veterinaria.repository.ConsultaRepository;
 import com.clinica.veterinaria.repository.VeterinarioRepository;
-import org.glassfish.jaxb.runtime.v2.runtime.output.SAXOutput;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,9 +58,10 @@ class VeterinarioServiceTest {
 
         Mockito.when(veterinarioRepository.existsByCpfVeterinario(veterinarioDTO.cpfVeterinario())).thenReturn(true);
 
-        assertThrows(
+        IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class, () -> veterinarioService.save(veterinarioDTO)
         );
+        System.out.println(exception.getMessage()); // mostrar no terminal a exceção lançada
 
         Mockito.verify(veterinarioRepository).existsByCpfVeterinario(veterinarioDTO.cpfVeterinario());
         Mockito.verify(veterinarioRepository, Mockito.never()).save(Mockito.any(VeterinarioEntity.class));
@@ -89,9 +89,10 @@ class VeterinarioServiceTest {
 
         Mockito.when(veterinarioRepository.existsById(idVeterinario)).thenReturn(false);
 
-        assertThrows(
+        IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class, () -> veterinarioService.delete(idVeterinario)
         );
+        System.out.println(exception.getMessage()); // mostrar no terminal a exceção lançada
 
         Mockito.verify(veterinarioRepository).existsById(idVeterinario);
         Mockito.verify(veterinarioRepository, Mockito.never()).deleteById(idVeterinario);
