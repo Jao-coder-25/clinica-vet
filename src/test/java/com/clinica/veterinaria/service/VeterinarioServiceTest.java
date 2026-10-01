@@ -65,4 +65,19 @@ class VeterinarioServiceTest {
         Mockito.verify(veterinarioRepository).existsByCpfVeterinario(veterinarioDTO.cpfVeterinario());
         Mockito.verify(veterinarioRepository, Mockito.never()).save(Mockito.any(VeterinarioEntity.class));
     }
+
+    @Test
+    @DisplayName("Deve deletar um veterinário caso ele exista e não tenha consultas agendadas")
+    void deleteCase1 () {
+        Long idVeterinario = 2L;
+
+        Mockito.when(veterinarioRepository.existsById(idVeterinario)).thenReturn(true);
+        Mockito.when(consultaRepository.existsByVeterinarioIdVeterinario(idVeterinario)).thenReturn(false);
+
+        veterinarioService.delete(idVeterinario);
+
+        Mockito.verify(veterinarioRepository).existsById(idVeterinario);
+        Mockito.verify(consultaRepository).existsByVeterinarioIdVeterinario(idVeterinario);
+        Mockito.verify(veterinarioRepository).deleteById(idVeterinario);
+    }
 }
