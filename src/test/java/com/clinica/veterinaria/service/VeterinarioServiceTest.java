@@ -4,6 +4,7 @@ import com.clinica.veterinaria.dto.request.VeterinarioDTO;
 import com.clinica.veterinaria.entity.VeterinarioEntity;
 import com.clinica.veterinaria.repository.ConsultaRepository;
 import com.clinica.veterinaria.repository.VeterinarioRepository;
+import org.glassfish.jaxb.runtime.v2.runtime.output.SAXOutput;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -93,6 +94,24 @@ class VeterinarioServiceTest {
         );
 
         Mockito.verify(veterinarioRepository).existsById(idVeterinario);
+        Mockito.verify(veterinarioRepository, Mockito.never()).deleteById(idVeterinario);
+    }
+
+    @Test
+    @DisplayName("Deve lançar exceção caso o veterinário tenha consultas agendadas")
+    void deleteCase3 () {
+        Long idVeterinario = 2L;
+
+        Mockito.when(veterinarioRepository.existsById(idVeterinario)).thenReturn(true);
+        Mockito.when(consultaRepository.existsByVeterinarioIdVeterinario(idVeterinario)).thenReturn(true);
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class, () -> veterinarioService.delete(idVeterinario)
+        );
+        System.out.println(exception.getMessage()); // mostrar no terminal a exceção lançada
+
+        Mockito.verify(veterinarioRepository).existsById(idVeterinario);
+        Mockito.verify(consultaRepository).existsByVeterinarioIdVeterinario(idVeterinario);
         Mockito.verify(veterinarioRepository, Mockito.never()).deleteById(idVeterinario);
     }
 }
