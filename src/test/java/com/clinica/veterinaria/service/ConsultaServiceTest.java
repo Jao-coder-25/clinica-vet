@@ -4,6 +4,7 @@ import com.clinica.veterinaria.dto.request.ConsultaDTO;
 import com.clinica.veterinaria.dto.response.ConsultaResponseDTO;
 import com.clinica.veterinaria.entity.ConsultaEntity;
 import com.clinica.veterinaria.entity.PetEntity;
+import com.clinica.veterinaria.entity.TutorEntity;
 import com.clinica.veterinaria.entity.VeterinarioEntity;
 import com.clinica.veterinaria.repository.ConsultaRepository;
 import com.clinica.veterinaria.repository.PetRepository;
@@ -39,15 +40,23 @@ class ConsultaServiceTest {
     @DisplayName("Deve salvar uma consulta com sucesso")
     void saveConsultaCase1 () {
         ConsultaDTO consultaDTO = new ConsultaDTO("Tosa", LocalDate.of(2026,9,26), LocalTime.of(17,0), 3L, 2L);
+        TutorEntity tutorEntity = TutorEntity.builder()
+                .idTutor(1L)
+                .nomeTutor("João")
+                .build();
+        PetEntity petEntity = PetEntity.builder()
+                .idPet(2L)
+                .tutor(tutorEntity)
+                .build();
+        VeterinarioEntity veterinarioEntity = VeterinarioEntity.builder()
+                .idVeterinario(3L)
+                .build();
 
-        PetEntity petEntity = new PetEntity();
-        VeterinarioEntity veterinarioEntity = new VeterinarioEntity();
-
-        Mockito.when(veterinarioRepository.existsById(3L)).thenReturn(true);
-        Mockito.when(petRepository.existsById(2L)).thenReturn(true);
+        Mockito.when(veterinarioRepository.existsById(veterinarioEntity.getIdVeterinario())).thenReturn(true);
+        Mockito.when(petRepository.existsById(petEntity.getIdPet())).thenReturn(true);
         Mockito.when(consultaRepository.existsByDataConsultaAndHorarioConsulta(consultaDTO.dataConsulta(), consultaDTO.horarioConsulta())).thenReturn(false);
-        Mockito.when(veterinarioRepository.getReferenceById(3L)).thenReturn(veterinarioEntity);
-        Mockito.when(petRepository.getReferenceById(2L)).thenReturn(petEntity);
+        Mockito.when(veterinarioRepository.getReferenceById(veterinarioEntity.getIdVeterinario())).thenReturn(veterinarioEntity);
+        Mockito.when(petRepository.getReferenceById(petEntity.getIdPet())).thenReturn(petEntity);
 
         ConsultaEntity consultaSalva = ConsultaEntity.builder()
                 .idConsulta(4L)
