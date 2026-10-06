@@ -144,4 +144,18 @@ class ConsultaServiceTest {
 
         Mockito.verify(consultaRepository).deleteById(idConsulta);
     }
+
+    @Test
+    @DisplayName("Deve lançar exceção ao tentar deletar consulta inexistente")
+    void deleteConsultaCase2 () {
+        Long idConsulta = 1L;
+        Mockito.when(consultaRepository.existsById(idConsulta)).thenReturn(false);
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            consultaService.delete(idConsulta);
+        });
+
+        System.out.println("Exceção lançada: " + exception.getMessage());
+        Mockito.verify(consultaRepository, Mockito.never()).deleteById(idConsulta);
+    }
 }
