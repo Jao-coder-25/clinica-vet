@@ -88,4 +88,18 @@ class ConsultaServiceTest {
         Mockito.verify(petRepository).existsById(consultaDTO.idPet());
         Mockito.verify(veterinarioRepository).existsById(consultaDTO.idVeterinario());
     }
+
+    @Test
+    @DisplayName("Deve lançar exceção ao tentar salvar consulta com veterinário não encontrado")
+    void saveCase2 () {
+        ConsultaDTO consultaDTO = new ConsultaDTO("Tosa", LocalDate.of(2026,9,26), LocalTime.of(17,0), 3L, 2L);
+        Mockito.when(veterinarioRepository.existsById(consultaDTO.idVeterinario())).thenReturn(false);
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            consultaService.save(consultaDTO);
+        });
+
+        System.out.println("Exceção lançada: " + exception.getMessage());
+        Mockito.verify(consultaRepository, Mockito.never()).save(Mockito.any(ConsultaEntity.class));
+    }
 }
