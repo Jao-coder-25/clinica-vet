@@ -133,4 +133,15 @@ class ConsultaServiceTest {
         System.out.println("Exceção lançada: " + exception.getMessage());
         Mockito.verify(consultaRepository, Mockito.never()).save(Mockito.any(ConsultaEntity.class));
     }
+
+    @Test
+    @DisplayName("Deve deletar uma consulta com sucesso")
+    void deleteConsultaCase1 () {
+        Long idConsulta = 1L;
+        Mockito.when(consultaRepository.existsById(idConsulta)).thenReturn(true);
+
+        consultaService.delete(idConsulta);
+
+        Mockito.verify(consultaRepository).deleteById(idConsulta);
+    }
 }
