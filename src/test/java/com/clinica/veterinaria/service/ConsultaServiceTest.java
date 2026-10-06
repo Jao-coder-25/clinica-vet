@@ -117,4 +117,20 @@ class ConsultaServiceTest {
         System.out.println("Exceção lançada: " + exception.getMessage());
         Mockito.verify(consultaRepository, Mockito.never()).save(Mockito.any(ConsultaEntity.class));
     }
+
+    @Test
+    @DisplayName("Deve lançar exceção ao tentar salvar consulta com horário indisponível")
+    void saveCase4 () {
+        ConsultaDTO consultaDTO = new ConsultaDTO("Tosa", LocalDate.of(2026,9,26), LocalTime.of(17,0), 3L, 2L);
+        Mockito.when(veterinarioRepository.existsById(consultaDTO.idVeterinario())).thenReturn(true);
+        Mockito.when(petRepository.existsById(consultaDTO.idPet())).thenReturn(true);
+        Mockito.when(consultaRepository.existsByDataConsultaAndHorarioConsulta(consultaDTO.dataConsulta(), consultaDTO.horarioConsulta())).thenReturn(true);
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            consultaService.save(consultaDTO);
+        });
+
+        System.out.println("Exceção lançada: " + exception.getMessage());
+        Mockito.verify(consultaRepository, Mockito.never()).save(Mockito.any(ConsultaEntity.class));
+    }
 }
