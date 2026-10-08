@@ -102,4 +102,22 @@ class PetServiceTest {
         Mockito.verify(consultaRepository).existsByPetIdPet(idPet);
         Mockito.verify(petRepository).deleteById(idPet);
     }
+
+    @Test
+    @DisplayName("Deve lançar exceção ao tentar excluir um pet inexistente")
+    void deleteCase2() {
+        Long idPet = 1L;
+
+        Mockito.when(petRepository.existsById(idPet)).thenReturn(false);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            petService.delete(idPet);
+        });
+
+        System.out.println("Exceção lançada: " + exception.getMessage());
+
+        Mockito.verify(petRepository).existsById(idPet);
+        Mockito.verify(consultaRepository, Mockito.never()).existsByPetIdPet(idPet);
+        Mockito.verify(petRepository, Mockito.never()).deleteById(idPet);
+    }
 }
