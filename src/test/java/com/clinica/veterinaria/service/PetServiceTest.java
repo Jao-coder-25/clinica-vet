@@ -87,4 +87,19 @@ class PetServiceTest {
         Mockito.verify(tutorRepository).existsById(tutorEntity.getIdTutor());
         Mockito.verify(petRepository, Mockito.never()).save(Mockito.any(PetEntity.class));
     }
+
+    @Test
+    @DisplayName("Deve excluir um pet com sucesso")
+    void deleteCase1() {
+        Long idPet = 1L;
+
+        Mockito.when(petRepository.existsById(idPet)).thenReturn(true);
+        Mockito.when(consultaRepository.existsByPetIdPet(idPet)).thenReturn(false);
+
+        petService.delete(idPet);
+
+        Mockito.verify(petRepository).existsById(idPet);
+        Mockito.verify(consultaRepository).existsByPetIdPet(idPet);
+        Mockito.verify(petRepository).deleteById(idPet);
+    }
 }
