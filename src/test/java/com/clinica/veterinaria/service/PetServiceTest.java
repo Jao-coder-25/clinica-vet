@@ -67,4 +67,24 @@ class PetServiceTest {
         assertEquals(petDTO.sexoPet(), petSalvo.getSexo());
         assertEquals(petDTO.dataNascimentoPet(), petSalvo.getDataNascimento());
     }
+
+    @Test
+    @DisplayName("Deve lançar exceção ao tentar salvar um pet com tutor inexistente")
+    void saveCase2() {
+        TutorEntity tutorEntity = TutorEntity.builder()
+                .idTutor(1L)
+                .build();
+        PetDTO petDTO = new PetDTO( "Rex", "Cachorro", "Macho", LocalDate.of(2024, 12, 15), tutorEntity.getIdTutor());
+
+        Mockito.when(tutorRepository.existsById(tutorEntity.getIdTutor())).thenReturn(false);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            petService.save(petDTO);
+        });
+
+        System.out.println("Exceção lançada: " + exception.getMessage());
+
+        Mockito.verify(tutorRepository).existsById(tutorEntity.getIdTutor());
+        Mockito.verify(petRepository, Mockito.never()).save(Mockito.any(PetEntity.class));
+    }
 }
